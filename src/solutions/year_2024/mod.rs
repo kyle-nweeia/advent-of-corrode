@@ -1,1 +1,8 @@
-pub mod day_1;
+mod day_1;
+
+pub fn get_solution(day: u32) -> fn() {
+    match day {
+        1 => day_1::solve,
+        _ => || {},
+    }
+}
