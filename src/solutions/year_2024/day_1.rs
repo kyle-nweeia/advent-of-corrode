@@ -1,2 +1,3 @@
-pub fn solve() {
+pub fn solve() -> &'static str {
+    "Merry Christmas!"
 }
