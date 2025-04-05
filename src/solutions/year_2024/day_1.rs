@@ -1,3 +1,3 @@
-pub fn solve() -> &'static str {
-    "Merry Christmas!"
+pub fn solve(input: String) -> String {
+    String::from("Merry Christmas!")
 }
