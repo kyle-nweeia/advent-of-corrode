@@ -31,7 +31,7 @@ pub async fn handler(Path(Params { year, day }): Path<Params>) -> Result<String,
                 .await
                 .map_err(|_| StatusCode::BAD_GATEWAY)?;
 
-            if let Err(_) = std::fs::write(&filename, &response) {
+            if std::fs::write(&filename, &response).is_err() {
                 let _ = std::fs::remove_file(&filename);
             }
 
