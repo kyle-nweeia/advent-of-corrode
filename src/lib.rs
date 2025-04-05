@@ -1,5 +1,4 @@
 use axum::{extract::Path, http::StatusCode};
-use std::io::Write;
 
 mod solutions;
 
@@ -31,10 +30,7 @@ pub async fn handler(Path(Params { year, day }): Path<Params>) -> Result<String,
             let response = request_puzzle_input(year, day)
                 .await
                 .map_err(|_| StatusCode::BAD_GATEWAY)?;
-
-            if let Ok(mut file) = std::fs::File::create(&filename) {
-                let _ = file.write(response.as_bytes());
-            }
+            let _ = std::fs::write(&filename, &response);
 
             response
         },
