@@ -30,7 +30,10 @@ pub async fn handler(Path(Params { year, day }): Path<Params>) -> Result<String,
             let response = request_puzzle_input(year, day)
                 .await
                 .map_err(|_| StatusCode::BAD_GATEWAY)?;
-            let _ = std::fs::write(&filename, &response);
+
+            if let Err(_) = std::fs::write(&filename, &response) {
+                let _ = std::fs::remove_file(&filename);
+            }
 
             response
         },
