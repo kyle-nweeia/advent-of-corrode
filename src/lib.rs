@@ -4,7 +4,6 @@ use axum::{
 };
 use diesel::prelude::*;
 use dotenvy::dotenv;
-use models::NewSessionCookie;
 use std::{env::var, fs};
 
 pub mod models;
@@ -75,7 +74,7 @@ pub async fn session_cookie_handler(
     Json(SessionCookieBody { username, val }): Json<SessionCookieBody>,
 ) -> Result<StatusCode, StatusCode> {
     diesel::insert_into(crate::schema::session_cookies::table)
-        .values(&NewSessionCookie {
+        .values(&models::SessionCookie {
             username: &username,
             val: &val,
         })
