@@ -73,7 +73,7 @@ pub async fn handler(Path(Params { year, day }): Path<Params>) -> Result<String,
 pub async fn session_cookie_handler(
     Json(SessionCookieBody { username, val }): Json<SessionCookieBody>,
 ) -> Result<StatusCode, StatusCode> {
-    diesel::insert_into(crate::schema::session_cookies::table)
+    diesel::insert_into(schema::session_cookies::table)
         .values(&models::SessionCookie {
             username: &username,
             val: &val,
