@@ -32,13 +32,13 @@ fn establish_connection() -> Result<PgConnection, StatusCode> {
 }
 
 async fn request_puzzle_input(year: u32, day: u32) -> Result<String, StatusCode> {
-    use self::schema::session_cookies::dsl::*;
+    use schema::session_cookies::dsl;
 
     dotenv().ok();
 
-    let session = session_cookies
-        .filter(username.eq(&var("CURRENT_USER").map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?))
-        .select(val)
+    let session = dsl::session_cookies
+        .filter(dsl::username.eq(&var("CURRENT_USER").map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?))
+        .select(dsl::val)
         .first::<String>(&mut establish_connection()?)
         .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
 
