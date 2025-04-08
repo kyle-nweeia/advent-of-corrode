@@ -6,8 +6,8 @@ use diesel::prelude::*;
 use dotenvy::dotenv;
 use std::{env::var, fs};
 
-pub mod models;
-pub mod schema;
+mod models;
+mod schema;
 mod solutions;
 
 #[derive(serde::Deserialize)]
