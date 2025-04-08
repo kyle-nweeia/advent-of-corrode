@@ -57,16 +57,16 @@ pub async fn handler(Path(Params { year, day }): Path<Params>) -> Result<String,
     let filename = format!("input_{year}_{day}.txt");
 
     Ok(solutions::get_solution(year, day)?(
-        if let Ok(input) = fs::read_to_string(&filename) {
-            input
+        if let Ok(local) = fs::read_to_string(&filename) {
+            local
         } else {
-            let response = request_puzzle_input(year, day).await?;
+            let remote = request_puzzle_input(year, day).await?;
 
-            fs::write(&filename, &response)
+            fs::write(&filename, &remote)
                 .or_else(|_| fs::remove_file(&filename))
                 .ok();
 
-            response
+            remote
         },
     ))
 }
