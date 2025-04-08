@@ -63,7 +63,7 @@ pub async fn handler(Path(Params { year, day }): Path<Params>) -> Result<String,
             let response = request_puzzle_input(year, day).await?;
 
             if fs::write(&filename, &response).is_err() {
-                let _ = fs::remove_file(&filename);
+                fs::remove_file(&filename).ok();
             }
 
             response
