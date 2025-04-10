@@ -57,8 +57,8 @@ async fn request_puzzle_input(year: u32, day: u32) -> Result<String, StatusCode>
 pub async fn handler(Path(Params { year, day }): Path<Params>) -> Result<String, StatusCode> {
     let filename = format!("input_{year}_{day}.txt");
 
-    Ok(solutions::get_solution(year, day)?(
-        if let Ok(local) = fs::read_to_string(&filename) {
+    Ok(
+        solutions::get_solution(year, day)?(if let Ok(local) = fs::read_to_string(&filename) {
             local
         } else {
             let remote = request_puzzle_input(year, day).await?;
@@ -68,8 +68,9 @@ pub async fn handler(Path(Params { year, day }): Path<Params>) -> Result<String,
                 .ok();
 
             remote
-        },
-    ))
+        })
+        .to_string(),
+    )
 }
 
 pub async fn session_cookie_handler(
