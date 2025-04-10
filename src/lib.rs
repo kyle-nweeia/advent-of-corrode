@@ -54,7 +54,9 @@ async fn request_puzzle_input(year: u32, day: u32) -> Result<String, StatusCode>
         .map_err(|_| StatusCode::BAD_GATEWAY)
 }
 
-pub async fn handler(Path(Params { year, day }): Path<Params>) -> Result<String, StatusCode> {
+pub async fn submission_handler(
+    Path(Params { year, day }): Path<Params>,
+) -> Result<String, StatusCode> {
     let filename = format!("input_{year}_{day}.txt");
 
     Ok(
