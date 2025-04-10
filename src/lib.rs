@@ -36,7 +36,9 @@ async fn request_puzzle_input(year: u32, day: u32) -> Result<String, StatusCode>
     dotenv().ok();
 
     let session = dsl::session_cookies
-        .filter(dsl::username.eq(&var("CURRENT_USER").map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?))
+        .filter(
+            dsl::username.eq(&var("CURRENT_USER").map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?),
+        )
         .select(dsl::val)
         .first::<String>(&mut establish_connection()?)
         .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
