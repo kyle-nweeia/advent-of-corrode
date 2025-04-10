@@ -43,7 +43,9 @@ async fn request_puzzle_input(year: u32, day: u32) -> Result<String, StatusCode>
         .first::<String>(&mut establish_connection()?)
         .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
 
-    reqwest::Client::new()
+    reqwest::ClientBuilder::new()
+        .build()
+        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?
         .get(format!("https://adventofcode.com/{year}/day/{day}/input"))
         .header(reqwest::header::COOKIE, format!("session={session}"))
         .send()
