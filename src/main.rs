@@ -1,4 +1,4 @@
-use advent_of_code::{session_cookie_handler, submission_handler};
+use advent_of_corrode::{session_cookie_handler, submission_handler};
 use axum::routing;
 
 #[tokio::main]
