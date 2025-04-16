@@ -1,4 +1,4 @@
-pub fn solve(input: String) -> f64 {
+pub fn solve_part_1(input: String) -> f64 {
     let lines: Vec<_> = input.split('\n').filter(|line| !line.is_empty()).collect();
     let rows: Vec<_> = lines
         .into_iter()
@@ -48,7 +48,7 @@ mod tests {
 
     #[test]
     fn example() {
-        assert_eq!(solve(INPUT.into()), 11 as f64);
+        assert_eq!(solve_part_1(INPUT.into()), 11 as f64);
     }
 
     #[test]
