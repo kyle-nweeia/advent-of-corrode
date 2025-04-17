@@ -1,3 +1,12 @@
+use crate::Part;
+
+pub fn solve(part: Part) -> fn(String) -> f64 {
+    match part {
+        Part::One => solve_part_1,
+        Part::Two => solve_part_2,
+    }
+}
+
 pub fn solve_part_1(input: String) -> f64 {
     let lines: Vec<_> = input.split('\n').filter(|line| !line.is_empty()).collect();
     let rows: Vec<_> = lines
