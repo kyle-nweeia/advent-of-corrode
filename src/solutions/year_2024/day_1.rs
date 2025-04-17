@@ -1,4 +1,4 @@
-use crate::Part;
+use crate::endpoints::submission::Part;
 
 pub fn solve(part: Part) -> fn(String) -> f64 {
     match part {
