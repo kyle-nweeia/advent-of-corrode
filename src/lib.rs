@@ -28,7 +28,7 @@ enum Part {
 #[derive(Deserialize)]
 pub struct SessionCookieBody {
     username: String,
-    val: String,
+    value: String,
 }
 
 fn establish_connection() -> Result<PgConnection, StatusCode> {
@@ -87,12 +87,12 @@ pub async fn submission_handler(
 }
 
 pub async fn session_cookie_handler(
-    Json(SessionCookieBody { username, val }): Json<SessionCookieBody>,
+    Json(SessionCookieBody { username, value }): Json<SessionCookieBody>,
 ) -> Result<StatusCode, StatusCode> {
     diesel::insert_into(schema::session_cookies::table)
         .values(&models::SessionCookie {
             username: &username,
-            val: &val,
+            val: &value,
         })
         .execute(&mut establish_connection()?)
         .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
