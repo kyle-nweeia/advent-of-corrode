@@ -4,13 +4,14 @@ use axum::{
 };
 use diesel::prelude::*;
 use dotenvy::dotenv;
+use serde::Deserialize;
 use std::{env::var, fs};
 
 mod models;
 mod schema;
 mod solutions;
 
-#[derive(serde::Deserialize)]
+#[derive(Deserialize)]
 pub struct Params {
     year: u32,
     day: u32,
@@ -24,7 +25,7 @@ enum Part {
     Two,
 }
 
-#[derive(serde::Deserialize)]
+#[derive(Deserialize)]
 pub struct SessionCookieBody {
     username: String,
     val: String,
