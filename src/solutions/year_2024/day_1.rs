@@ -1,6 +1,6 @@
 use crate::endpoints::submission::Part;
 
-pub fn solve(part: Part) -> fn(String) -> f64 {
+pub fn solve(part: Part) -> super::Solver {
     match part {
         Part::One => solve_part_1,
         Part::Two => solve_part_2,
