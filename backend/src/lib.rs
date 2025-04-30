@@ -8,7 +8,7 @@ pub mod utils;
 
 pub fn router() -> Router {
     Router::new()
-        .merge(endpoints::root::router())
         .merge(endpoints::session::router())
         .merge(endpoints::submission::router())
+        .layer(tower_http::cors::CorsLayer::very_permissive())
 }
