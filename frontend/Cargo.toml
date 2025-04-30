@@ -1,0 +1,23 @@
+[package]
+name = "frontend"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+dioxus = "0.6.3"
+dioxus-logger = "0.6.2"
+reqwest = "0.12.15"
+
+[features]
+default = ["web"]
+web = ["dioxus/web"]
+
+[profile.wasm-dev]
+inherits = "dev"
+opt-level = 1
+
+[profile.server-dev]
+inherits = "dev"
+
+[profile.android-dev]
+inherits = "dev"
