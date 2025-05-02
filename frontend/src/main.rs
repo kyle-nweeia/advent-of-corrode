@@ -21,9 +21,11 @@ impl<'a> FormValues<'a> {
 }
 
 fn app() -> Element {
+    let mut answer = use_signal(String::new);
+
     rsx! {
         form {
-            onsubmit: async |evt: FormEvent| {
+            onsubmit: move |evt: FormEvent| async move {
                 if let Some(FormValues { year, day, part }) = FormValues::from(&evt.values()) {
                     let result = reqwest::Client::new()
                         .get(format!("http://localhost:3000/submit/{year}/{day}/{part}"))
@@ -31,7 +33,7 @@ fn app() -> Element {
                         .await;
                     if let Ok(response) = result {
                         if let Ok(text) = response.text().await {
-                            dioxus_logger::tracing::info!("{text:?}");
+                            answer.set(text);
                         }
                     }
                 }
@@ -52,6 +54,7 @@ fn app() -> Element {
             div {
                 input { type: "submit" }
             }
+            div { "Answer: {answer}" }
         }
     }
 }
