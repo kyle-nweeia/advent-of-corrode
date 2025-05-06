@@ -52,7 +52,7 @@ fn app() -> Element {
                 input { name: "part" }
             }
             div {
-                input { type: "submit" }
+                input { r#type: "submit" }
             }
             div { "Answer: {answer}" }
         }
