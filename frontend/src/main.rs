@@ -25,6 +25,9 @@ fn app() -> Element {
 
     rsx! {
         form {
+            display: "flex",
+            flex_direction: "column",
+            align_items: "center",
             onsubmit: move |evt: FormEvent| async move {
                 if let Some(FormValues { year, day, part }) = FormValues::from(&evt.values()) {
                     let result = reqwest::Client::new()
@@ -40,21 +43,22 @@ fn app() -> Element {
             },
 
             div {
-                label { "Year:" }
-                input { name: "year" }
+                label { margin: "5px", "Year:" }
+                input { margin: "5px", name: "year" }
             }
             div {
-                label { "Day:" }
-                input { name: "day" }
+                label { margin: "5px", "Day:" }
+                input { margin: "5px", name: "day" }
             }
             div {
-                label { "Part:" }
-                input { name: "part" }
+                label { margin: "5px", "Part:" }
+                input { margin: "5px", name: "part" }
             }
             div {
-                input { r#type: "submit" }
+                input { margin: "5px", r#type: "submit" }
             }
-            div { "Answer: {answer}" }
+            div { margin: "5px", "Answer:" }
+            div { margin: "5px", "{answer}" }
         }
     }
 }
