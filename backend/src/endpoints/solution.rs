@@ -1,15 +1,9 @@
 use axum::{Router, extract::Path, http::StatusCode};
 use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
 use std::fs;
+use types::Solution;
 
 use crate::schema::session_cookies::dsl;
-
-#[derive(serde::Deserialize)]
-struct Params {
-    year: u32,
-    day: u32,
-    part: Part,
-}
 
 #[derive(serde_repr::Deserialize_repr)]
 #[repr(u8)]
@@ -43,7 +37,9 @@ async fn request_puzzle_input(year: u32, day: u32) -> Result<String, StatusCode>
         .map_err(|_| StatusCode::BAD_GATEWAY)
 }
 
-async fn handler(Path(Params { year, day, part }): Path<Params>) -> Result<String, StatusCode> {
+async fn handler(
+    Path(Solution { year, day, part }): Path<Solution<u32, u32, Part>>,
+) -> Result<String, StatusCode> {
     let filename = format!("input_{year}_{day}.txt");
 
     Ok(crate::solutions::get_solution(year, day, part)?(

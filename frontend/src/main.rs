@@ -1,23 +1,8 @@
 use dioxus::prelude::*;
+use types::Solution;
 
 fn main() {
     dioxus::launch(app);
-}
-
-struct FormValues<'a> {
-    year: &'a str,
-    day: &'a str,
-    part: &'a str,
-}
-
-impl<'a> FormValues<'a> {
-    fn from(vals: &'a std::collections::HashMap<String, FormValue>) -> Option<FormValues<'a>> {
-        Some(FormValues {
-            year: vals.get("year")?.first()?,
-            day: vals.get("day")?.first()?,
-            part: vals.get("part")?.first()?,
-        })
-    }
 }
 
 fn app() -> Element {
@@ -29,7 +14,7 @@ fn app() -> Element {
             flex_direction: "column",
             align_items: "center",
             onsubmit: move |evt: FormEvent| async move {
-                if let Some(FormValues { year, day, part }) = FormValues::from(&evt.values()) {
+                if let Some(Solution { year, day, part }) = Solution::from(&evt.values()) {
                     let result = reqwest::Client::new()
                         .get(format!("http://localhost:3000/solution/{year}/{day}/{part}"))
                         .send()

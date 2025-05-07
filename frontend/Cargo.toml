@@ -6,6 +6,7 @@ edition = "2024"
 [dependencies]
 dioxus = "0.6.3"
 reqwest = "0.12.15"
+types = { path = "../types" }
 
 [features]
 default = ["web"]
