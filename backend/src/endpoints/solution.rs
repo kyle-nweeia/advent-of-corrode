@@ -63,5 +63,5 @@ async fn handler(Path(Params { year, day, part }): Path<Params>) -> Result<Strin
 }
 
 pub fn router() -> Router {
-    Router::new().route("/submit/{year}/{day}/{part}", axum::routing::get(handler))
+    Router::new().route("/solution/{year}/{day}/{part}", axum::routing::get(handler))
 }

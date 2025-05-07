@@ -1,6 +1,6 @@
 use axum::http::StatusCode;
 
-use crate::endpoints::submission::Part;
+use crate::endpoints::solution::Part;
 
 mod year_2024;
 

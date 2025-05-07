@@ -31,7 +31,7 @@ fn app() -> Element {
             onsubmit: move |evt: FormEvent| async move {
                 if let Some(FormValues { year, day, part }) = FormValues::from(&evt.values()) {
                     let result = reqwest::Client::new()
-                        .get(format!("http://localhost:3000/submit/{year}/{day}/{part}"))
+                        .get(format!("http://localhost:3000/solution/{year}/{day}/{part}"))
                         .send()
                         .await;
                     if let Ok(response) = result {
