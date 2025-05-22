@@ -4,13 +4,17 @@ use crate::endpoints::solution::Part;
 
 pub fn solve(part: Part) -> super::Solver {
     match part {
-        Part::One => solve_part_1,
-        Part::Two => solve_part_2,
+        Part::One => solve_part_1::<String>,
+        Part::Two => solve_part_2::<String>,
     }
 }
 
-pub fn solve_part_1(input: String) -> f64 {
-    let lines: Vec<_> = input.split('\n').filter(|line| !line.is_empty()).collect();
+pub fn solve_part_1<T>(input: T) -> f64
+where
+    String: From<T>,
+{
+    let string = String::from(input);
+    let lines: Vec<_> = string.split('\n').filter(|line| !line.is_empty()).collect();
     let rows: Vec<_> = lines
         .into_iter()
         .map(|line| {
@@ -30,8 +34,12 @@ pub fn solve_part_1(input: String) -> f64 {
         .into()
 }
 
-pub fn solve_part_2(input: String) -> f64 {
-    let lines: Vec<_> = input.split('\n').filter(|line| !line.is_empty()).collect();
+pub fn solve_part_2<T>(input: T) -> f64
+where
+    String: From<T>,
+{
+    let string = String::from(input);
+    let lines: Vec<_> = string.split('\n').filter(|line| !line.is_empty()).collect();
     let rows: Vec<_> = lines
         .into_iter()
         .map(|line| {
@@ -78,11 +86,11 @@ mod tests {
 
     #[test]
     fn part_1_example() {
-        assert_eq!(solve_part_1(INPUT.into()), 11 as f64);
+        assert_eq!(solve_part_1(INPUT), 11 as f64);
     }
 
     #[test]
     fn part_2_example() {
-        assert_eq!(solve_part_2(INPUT.into()), 31 as f64);
+        assert_eq!(solve_part_2(INPUT), 31 as f64);
     }
 }
