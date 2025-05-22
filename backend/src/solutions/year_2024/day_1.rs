@@ -77,7 +77,7 @@ mod tests {
     "};
 
     #[test]
-    fn example() {
+    fn part_1_example() {
         assert_eq!(solve_part_1(INPUT.into()), 11 as f64);
     }
 
