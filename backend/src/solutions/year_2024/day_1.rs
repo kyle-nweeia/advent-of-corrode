@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 use crate::endpoints::solution::Part;
 
 pub fn solve(part: Part) -> super::Solver {
@@ -29,7 +31,26 @@ pub fn solve_part_1(input: String) -> f64 {
 }
 
 pub fn solve_part_2(input: String) -> f64 {
-    31.into()
+    let lines: Vec<_> = input.split('\n').filter(|line| !line.is_empty()).collect();
+    let rows: Vec<_> = lines
+        .into_iter()
+        .map(|line| {
+            line.split_whitespace()
+                .map(|num| num.parse::<u32>().unwrap())
+                .collect()
+        })
+        .collect();
+    let cols = transpose(rows);
+    let cnts = cols[1].iter().fold(HashMap::new(), |mut cnts, num| {
+        cnts.entry(num).and_modify(|cnt| *cnt += 1).or_insert(1);
+        cnts
+    });
+
+    cols[0]
+        .iter()
+        .map(|num| num * cnts.get(num).unwrap_or(&0))
+        .sum::<u32>()
+        .into()
 }
 
 fn transpose<T>(v: Vec<Vec<T>>) -> Vec<Vec<T>> {
