@@ -14,7 +14,7 @@ where
     String: From<T>,
 {
     let string = String::from(input);
-    let lines: Vec<_> = string.split('\n').filter(|line| !line.is_empty()).collect();
+    let lines = split_lines(&string);
     let rows: Vec<_> = lines
         .into_iter()
         .map(|line| {
@@ -39,7 +39,7 @@ where
     String: From<T>,
 {
     let string = String::from(input);
-    let lines: Vec<_> = string.split('\n').filter(|line| !line.is_empty()).collect();
+    let lines = split_lines(&string);
     let rows: Vec<_> = lines
         .into_iter()
         .map(|line| {
@@ -59,6 +59,10 @@ where
         .map(|num| num * cnts.get(num).unwrap_or(&0))
         .sum::<u32>()
         .into()
+}
+
+fn split_lines(input: &String) -> Vec<&str> {
+    input.split('\n').filter(|line| !line.is_empty()).collect()
 }
 
 fn transpose<T>(v: Vec<Vec<T>>) -> Vec<Vec<T>> {
