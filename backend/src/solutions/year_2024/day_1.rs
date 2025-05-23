@@ -15,14 +15,7 @@ where
 {
     let string = String::from(input);
     let lines = split_lines(&string);
-    let rows: Vec<_> = lines
-        .into_iter()
-        .map(|line| {
-            line.split_whitespace()
-                .map(|num| num.parse::<u32>().unwrap())
-                .collect()
-        })
-        .collect();
+    let rows = parse_rows(lines);
     let mut cols = transpose(rows);
 
     cols.iter_mut().for_each(|col| col.sort_unstable());
@@ -40,14 +33,7 @@ where
 {
     let string = String::from(input);
     let lines = split_lines(&string);
-    let rows: Vec<_> = lines
-        .into_iter()
-        .map(|line| {
-            line.split_whitespace()
-                .map(|num| num.parse::<u32>().unwrap())
-                .collect()
-        })
-        .collect();
+    let rows = parse_rows(lines);
     let cols = transpose(rows);
     let cnts = cols[1].iter().fold(HashMap::new(), |mut cnts, num| {
         cnts.entry(num).and_modify(|cnt| *cnt += 1).or_insert(1);
@@ -59,6 +45,17 @@ where
         .map(|num| num * cnts.get(num).unwrap_or(&0))
         .sum::<u32>()
         .into()
+}
+
+fn parse_rows(lines: Vec<&str>) -> Vec<Vec<u32>> {
+    lines
+        .into_iter()
+        .map(|line| {
+            line.split_whitespace()
+                .map(|num| num.parse::<u32>().unwrap())
+                .collect()
+        })
+        .collect()
 }
 
 fn split_lines(input: &String) -> Vec<&str> {
