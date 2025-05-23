@@ -13,10 +13,7 @@ pub fn solve_part_1<T>(input: T) -> f64
 where
     String: From<T>,
 {
-    let string = String::from(input);
-    let lines = split_lines(&string);
-    let rows = parse_rows(lines);
-    let mut cols = transpose(rows);
+    let mut cols = parse_columns(&input.into());
 
     cols.iter_mut().for_each(|col| col.sort_unstable());
 
@@ -31,10 +28,7 @@ pub fn solve_part_2<T>(input: T) -> f64
 where
     String: From<T>,
 {
-    let string = String::from(input);
-    let lines = split_lines(&string);
-    let rows = parse_rows(lines);
-    let cols = transpose(rows);
+    let cols = parse_columns(&input.into());
     let cnts = cols[1].iter().fold(HashMap::new(), |mut cnts, num| {
         cnts.entry(num).and_modify(|cnt| *cnt += 1).or_insert(1);
         cnts
@@ -45,6 +39,10 @@ where
         .map(|num| num * cnts.get(num).unwrap_or(&0))
         .sum::<u32>()
         .into()
+}
+
+fn parse_columns(input: &String) -> Vec<Vec<u32>> {
+    transpose(parse_rows(split_lines(input)))
 }
 
 fn parse_rows(lines: Vec<&str>) -> Vec<Vec<u32>> {
