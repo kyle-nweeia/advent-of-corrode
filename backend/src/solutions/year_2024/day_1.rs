@@ -85,11 +85,11 @@ mod tests {
 
     #[test]
     fn part_1_example() {
-        assert_eq!(solve_part_1(INPUT), 11 as f64);
+        assert_eq!(solve_part_1(INPUT), 11.0);
     }
 
     #[test]
     fn part_2_example() {
-        assert_eq!(solve_part_2(INPUT), 31 as f64);
+        assert_eq!(solve_part_2(INPUT), 31.0);
     }
 }
