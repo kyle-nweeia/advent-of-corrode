@@ -5,13 +5,6 @@ use types::Solution;
 
 use crate::schema::session_cookies::dsl;
 
-#[derive(serde_repr::Deserialize_repr)]
-#[repr(u8)]
-pub enum Part {
-    One = 1,
-    Two,
-}
-
 async fn request_puzzle_input(year: u32, day: u32) -> Result<String, StatusCode> {
     dotenvy::dotenv().ok();
 
@@ -38,7 +31,7 @@ async fn request_puzzle_input(year: u32, day: u32) -> Result<String, StatusCode>
 }
 
 async fn handler(
-    Path(Solution { year, day, part }): Path<Solution<u32, u32, Part>>,
+    Path(Solution { year, day, part }): Path<Solution<u32, u32, crate::Part>>,
 ) -> Result<String, StatusCode> {
     let filename = format!("input_{year}_{day}.txt");
 

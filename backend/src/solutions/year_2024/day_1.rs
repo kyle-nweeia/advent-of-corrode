@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::{endpoints::solution::Part, utils::parse_columns};
+use crate::{Part, utils::parse_columns};
 
 pub fn solve(part: Part) -> super::Solver {
     match part {

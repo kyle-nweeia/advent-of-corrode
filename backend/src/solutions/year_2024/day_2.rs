@@ -1,4 +1,4 @@
-use crate::endpoints::solution::Part;
+use crate::Part;
 
 pub fn solve(part: Part) -> super::Solver {
     match part {
