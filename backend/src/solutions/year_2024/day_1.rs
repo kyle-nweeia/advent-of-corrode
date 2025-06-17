@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::endpoints::solution::Part;
+use crate::{endpoints::solution::Part, utils::parse_columns};
 
 pub fn solve(part: Part) -> super::Solver {
     match part {
@@ -17,7 +17,7 @@ where
 
     cols.iter_mut().for_each(|col| col.sort_unstable());
 
-    transpose(cols)
+    crate::utils::transpose(cols)
         .iter()
         .map(|pair| pair[0].abs_diff(pair[1]))
         .sum::<u32>()
@@ -39,34 +39,6 @@ where
         .map(|num| num * cnts.get(num).unwrap_or(&0))
         .sum::<u32>()
         .into()
-}
-
-fn parse_columns(input: &String) -> Vec<Vec<u32>> {
-    transpose(parse_rows(split_lines(input)))
-}
-
-fn parse_rows(lines: Vec<&str>) -> Vec<Vec<u32>> {
-    lines
-        .into_iter()
-        .map(|line| {
-            line.split_whitespace()
-                .map(|num| num.parse::<u32>().unwrap())
-                .collect()
-        })
-        .collect()
-}
-
-fn split_lines(input: &String) -> Vec<&str> {
-    input.split('\n').filter(|line| !line.is_empty()).collect()
-}
-
-fn transpose<T>(v: Vec<Vec<T>>) -> Vec<Vec<T>> {
-    let n = v[0].len();
-    let mut rows: Vec<_> = v.into_iter().map(|row| row.into_iter()).collect();
-
-    (0..n)
-        .map(|_| rows.iter_mut().map(|row| row.next().unwrap()).collect())
-        .collect()
 }
 
 #[cfg(test)]
