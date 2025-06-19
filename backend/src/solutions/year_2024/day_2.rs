@@ -1,4 +1,7 @@
-use crate::Part;
+use crate::{
+    Part,
+    utils::{parse_rows, split_lines},
+};
 
 pub fn solve(part: Part) -> super::Solver {
     match part {
@@ -11,7 +14,30 @@ pub fn solve_part_1<T>(input: T) -> f64
 where
     String: From<T>,
 {
-    todo!();
+    enum Step {
+        Dec,
+        Err,
+        Inc,
+    }
+
+    parse_rows(split_lines(&input.into()))
+        .iter()
+        .map(|row| {
+            let mut steps = row.windows(2).map(|v| (v[0], v[1])).map(|(a, b)| {
+                if a == b || a.abs_diff(b) > 3 {
+                    Step::Err
+                } else if a > b {
+                    Step::Dec
+                } else {
+                    Step::Inc
+                }
+            });
+
+            steps.clone().all(|s| matches!(s, Step::Dec)) || steps.all(|s| matches!(s, Step::Inc))
+        })
+        .map(u32::from)
+        .sum::<u32>()
+        .into()
 }
 
 pub fn solve_part_2<T>(input: T) -> f64
@@ -36,7 +62,9 @@ mod tests {
     "};
 
     #[test]
-    fn part_1_example() {}
+    fn part_1_example() {
+        assert_eq!(solve_part_1(INPUT), 2.0);
+    }
 
     #[test]
     fn part_2_example() {}
