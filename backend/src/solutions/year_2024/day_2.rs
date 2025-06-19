@@ -1,7 +1,4 @@
-use crate::{
-    Part,
-    utils::{parse_rows, split_lines},
-};
+use crate::{Part, utils::parse_rows};
 
 pub fn solve(part: Part) -> super::Solver {
     match part {
@@ -20,7 +17,7 @@ where
         Inc,
     }
 
-    parse_rows(split_lines(&input.into()))
+    parse_rows(&input.into())
         .iter()
         .map(|row| {
             let mut steps = row.windows(2).map(|v| (v[0], v[1])).map(|(a, b)| {

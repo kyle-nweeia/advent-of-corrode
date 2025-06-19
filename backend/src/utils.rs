@@ -11,22 +11,18 @@ pub fn establish_database_connection() -> Result<PgConnection, StatusCode> {
 }
 
 pub fn parse_columns(input: &String) -> Vec<Vec<u32>> {
-    transpose(parse_rows(split_lines(input)))
+    transpose(parse_rows(input))
 }
 
-pub fn parse_rows(lines: Vec<&str>) -> Vec<Vec<u32>> {
-    lines
-        .into_iter()
+pub fn parse_rows(input: &String) -> Vec<Vec<u32>> {
+    input
+        .lines()
         .map(|line| {
             line.split_whitespace()
                 .map(|num| num.parse::<u32>().unwrap())
                 .collect()
         })
         .collect()
-}
-
-pub fn split_lines(input: &String) -> Vec<&str> {
-    input.split('\n').filter(|line| !line.is_empty()).collect()
 }
 
 pub fn transpose<T>(v: Vec<Vec<T>>) -> Vec<Vec<T>> {
