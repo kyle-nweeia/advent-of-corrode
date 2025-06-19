@@ -2,15 +2,12 @@ use crate::{Part, utils::parse_rows};
 
 pub fn solve(part: Part) -> super::Solver {
     match part {
-        Part::One => solve_part_1::<String>,
-        Part::Two => solve_part_2::<String>,
+        Part::One => solve_part_1,
+        Part::Two => solve_part_2,
     }
 }
 
-pub fn solve_part_1<T>(input: T) -> f64
-where
-    String: From<T>,
-{
+pub fn solve_part_1(input: impl Into<String>) -> f64 {
     enum Step {
         Dec,
         Err,
@@ -37,10 +34,7 @@ where
         .into()
 }
 
-pub fn solve_part_2<T>(input: T) -> f64
-where
-    String: From<T>,
-{
+pub fn solve_part_2(input: impl Into<String>) -> f64 {
     todo!();
 }
 

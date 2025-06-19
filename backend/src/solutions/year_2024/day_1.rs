@@ -4,15 +4,12 @@ use crate::{Part, utils::parse_columns};
 
 pub fn solve(part: Part) -> super::Solver {
     match part {
-        Part::One => solve_part_1::<String>,
-        Part::Two => solve_part_2::<String>,
+        Part::One => solve_part_1,
+        Part::Two => solve_part_2,
     }
 }
 
-pub fn solve_part_1<T>(input: T) -> f64
-where
-    String: From<T>,
-{
+pub fn solve_part_1(input: impl Into<String>) -> f64 {
     let mut cols = parse_columns(&input.into());
 
     cols.iter_mut().for_each(|col| col.sort_unstable());
@@ -24,10 +21,7 @@ where
         .into()
 }
 
-pub fn solve_part_2<T>(input: T) -> f64
-where
-    String: From<T>,
-{
+pub fn solve_part_2(input: impl Into<String>) -> f64 {
     let cols = parse_columns(&input.into());
     let cnts = cols[1].iter().fold(HashMap::new(), |mut cnts, num| {
         cnts.entry(num).and_modify(|cnt| *cnt += 1).or_insert(1);
